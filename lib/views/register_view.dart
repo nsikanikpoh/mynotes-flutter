@@ -75,7 +75,9 @@ class _RegisterViewState extends State<RegisterView> {
                           final userCredential = await FirebaseAuth.instance
                               .createUserWithEmailAndPassword(
                                   email: email, password: password);
-                          devtools.log(userCredential.toString());
+                          final user = FirebaseAuth.instance.currentUser;
+                          await user?.sendEmailVerification();
+                          Navigator.of(context).pushNamed(verifyEmailRoute);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             // ignore: use_build_context_synchronously
@@ -91,7 +93,7 @@ class _RegisterViewState extends State<RegisterView> {
                           } else if (e.code == 'invalid-email') {
                             await showErrorDialog(
                               context,
-                              'Invalid email entered',
+                              'This is an invalid email address',
                             );
                           } else {
                             await showErrorDialog(
