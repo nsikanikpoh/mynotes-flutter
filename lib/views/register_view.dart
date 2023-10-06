@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mynotes/constants/routes.dart';
 import 'package:mynotes/firebase_options.dart';
 import 'dart:developer' as devtools show log;
+import '../utilities/show_error_dialog.dart';
 
 class RegisterView extends StatefulWidget {
   const RegisterView({super.key});
@@ -77,12 +78,32 @@ class _RegisterViewState extends State<RegisterView> {
                           devtools.log(userCredential.toString());
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
-                            devtools.log('Weak password.');
+                            // ignore: use_build_context_synchronously
+                            await showErrorDialog(
+                              context,
+                              'Weak password!',
+                            );
                           } else if (e.code == 'email-already-in-use') {
-                            devtools.log('Email is already in use');
+                            await showErrorDialog(
+                              context,
+                              'Email is already in use',
+                            );
                           } else if (e.code == 'invalid-email') {
-                            devtools.log('Invalid email entered');
+                            await showErrorDialog(
+                              context,
+                              'Invalid email entered',
+                            );
+                          } else {
+                            await showErrorDialog(
+                              context,
+                              'IError: ${e.code}',
+                            );
                           }
+                        } catch (e) {
+                          await showErrorDialog(
+                            context,
+                            e.toString(),
+                          );
                         }
                       },
                     ),
