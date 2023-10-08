@@ -101,7 +101,7 @@ class _LoginViewState extends State<LoginView> {
                             // ignore: use_build_context_synchronously
                             await showErrorDialog(
                               context,
-                              'Wrong Credentials!',
+                              'Wrong Credentials Entered!',
                             );
                           } else {
                             await showErrorDialog(
