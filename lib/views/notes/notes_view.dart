@@ -81,6 +81,8 @@ class _NotesViewState extends State<NotesView> {
                       switch (snpsh.connectionState) {
                         case ConnectionState.waiting:
                           return const Text('waiting for all notes...');
+                        case ConnectionState.active:
+                          return const Text('Notes');
                         default:
                           return const CircularProgressIndicator();
                       }
