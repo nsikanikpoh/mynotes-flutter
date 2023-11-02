@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:mynotes/utilities/extentions/list/filter.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:path_provider/path_provider.dart';
@@ -250,6 +251,7 @@ class NotesService {
   }
 }
 
+@immutable
 class DatabaseUser {
   final int id;
   final String email;
